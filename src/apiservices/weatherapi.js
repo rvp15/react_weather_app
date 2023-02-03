@@ -5,16 +5,16 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5'
 
 //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
-const getFormattedData = async (city)=>{
+const getFormattedData = async (city,units)=>{
     const currentWeather = await getCurrentWeather('weather',city)
-    console.log(currentWeather)
+    // console.log(currentWeather)
    const lon = currentWeather.coord.lon
  const lat = currentWeather.coord.lat
 
  //https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
  const hourlyforcast = await getCurrentWeather('onecall', {
     lat,lon,exclude:'current,minutely,alerts',
-    units:city.units
+    units:units
  }).then(formatForecast)
  console.log(hourlyforcast)
     return {...hourlyforcast,...currentWeather}
@@ -28,19 +28,20 @@ const getCurrentWeather = async (option,city)=>{
     return await response.json();
 }
 const formatForecast=(data)=>{
+    console.log(data)
     let {timezone,daily,hourly} = data
-    daily = daily.slice(1,6).map(item=>{
+    daily = daily.slice(0,5).map(item=>{
         return {
-           days: luxonFormatToLocalTime(item.dt, timezone, 'ccc'),
+           title: luxonFormatToLocalTime(item.dt, timezone, 'ccc'),
            temp: item.temp.day,
            icon:item.weather[0].icon
 
         }
     })
-    hourly = hourly.slice(1,6).map(item=>{
+    hourly = hourly.slice(0,5).map(item=>{
         return {
-           days: luxonFormatToLocalTime(item.dt, timezone, 'hh:mm a'),
-           temp: item.temp.day,
+           title: luxonFormatToLocalTime(item.dt, timezone, 'hh:mm a'),
+           temp: item.temp,
            icon:item.weather[0].icon
 
         }

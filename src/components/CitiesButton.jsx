@@ -1,6 +1,6 @@
 import React from "react";
 
-function CitiesButton() {
+function CitiesButton({setCity}) {
   const cities = [
     {
       id: 1,
@@ -8,7 +8,7 @@ function CitiesButton() {
     },
     {
       id: 2,
-      title: "India",
+      title: "Delhi",
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ function CitiesButton() {
 
   return <div className="flex items-center justify-around my-6 ">
   {cities.map((item)=>(
-    <button key={item.id} className="text-white text-lg transition ease-out hover:scale-110">{item.title}</button>
+    <button onClick={()=>setCity({ q:item.title })} key={item.id} className="text-white text-lg transition ease-out hover:scale-110">{item.title}</button>
   ))}  
   </div>;
 }

@@ -1,16 +1,19 @@
 import React from 'react'
+import { luxonFormatToLocalTime } from '../apiservices/weatherapi'
 
-function TimeandLocation() {
+function TimeandLocation({weather:{dt,name,timezone,sys}}) {
+  // var day= new Date(dt*1000)
+  // console.log(day.toUTCString())
   return (
     <div>
     <div className='flex items-center justify-center my-6 '>
         <p className='text-white text-xl font-light'>
-            Tuesday, 31 May 2011 | Local time: 12:46 PM
+            {luxonFormatToLocalTime(dt,timezone)}
         </p>
     </div>
 
     <div className='flex items-center justify-center my-4'>
-        <p className='text-white text-2xl font-bold'> New York ,NY</p>
+        <p className='text-white text-2xl font-bold'> {name},{sys.country}</p>
     </div>
     </div>
   )

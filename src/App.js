@@ -7,26 +7,37 @@ import SearchBar from './components/SearchBar';
 import TimeandLocation from './components/TimeandLocation';
 import CurrentDetails from './components/CurrentDetails';
 import Forcast from './components/Forcast';
-
+import { useEffect, useState } from 'react';
 import getFormattedData from './apiservices/weatherapi'
 
 function App() {
+const [city,setCity] = useState({q: 'berlin'})
+const [unit,setUnit] =useState('metric')
+const [weather,setWeather]=useState(null)
+
   const startDataFetch = async()=>{
-    const data = await getFormattedData( {q:'london'})
-    console.log(data)
+    getFormattedData({...city,unit}).then((data)=>{setWeather(data)})
+    console.log(weather)
   }
 
-  startDataFetch();
+  
+useEffect(()=>{
+startDataFetch();
+},[city,unit])
 
   return (
-    <div style={{backgroundImage: `url(${hot})`,backgroundSize: 'cover'}} className="mx-auto max-w-screen-md mt-4 py-6 px-32  h-fit shadow-xl shadow-gray-400">
-<CitiesButton/>
-<SearchBar/>
+    <div style={{backgroundImage: `url(${hot})`,backgroundSize: 'cover'}} className="mx-auto  py-6 px-40  h-fit shadow-xl shadow-gray-400">
+<CitiesButton setCity={setCity}/>
+<SearchBar setCity={setCity} unit={unit} setUnit={setUnit}/>
 
-<TimeandLocation/>
-<CurrentDetails/>
-<Forcast title={'Hourly Forecast'}/>
-<Forcast title={'Daily Forecast'}/>
+{weather && (
+<div><TimeandLocation weather={weather}/>
+<CurrentDetails weatherdetail={weather}/>
+<Forcast detail={weather.hourly} title={'Hourly Forecast'}/>
+<Forcast detail={weather.daily}  title={'Daily Forecast'}/></div>
+
+)}
+
     </div>
   );
 }
