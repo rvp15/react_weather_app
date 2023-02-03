@@ -12,7 +12,7 @@ function Forcast({title,detail}) {
  <div className='flex flex-col font-medium items-center'>
             <p>{item.title}</p> 
             <img src={iconUrl(item.icon)} alt='img' className='w-14'/>
-            <p>{`${(item.temp.toFixed())}`}°</p>
+            <p>{`${(item.temp.toFixed())-273}`}°</p>
             {/* <p>{`${Math.floor((item.temp.toFixed())/100)}`}°</p> */}
         </div>
 

@@ -5,7 +5,7 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5'
 
 //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
-const getFormattedData = async (city,units)=>{
+const getFormattedData = async (city,unit)=>{
     const currentWeather = await getCurrentWeather('weather',city)
     // console.log(currentWeather)
    const lon = currentWeather.coord.lon
@@ -14,7 +14,7 @@ const getFormattedData = async (city,units)=>{
  //https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
  const hourlyforcast = await getCurrentWeather('onecall', {
     lat,lon,exclude:'current,minutely,alerts',
-    units:units
+    unit:unit
  }).then(formatForecast)
  console.log(hourlyforcast)
     return {...hourlyforcast,...currentWeather}

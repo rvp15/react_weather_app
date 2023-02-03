@@ -14,9 +14,9 @@ function CurrentDetails({weatherdetail}) {
  
  <div className='text-white flex flex-row items-center justify-between py-3'>
     <img src={iconUrl(weatherdetail.weather[0].icon)} alt="sunimage" className='w-25'/>
-    <p className='text-4xl'>{Math.round(weatherdetail.main.temp)}°</p>
+    <p className='text-4xl'>{Math.round(weatherdetail.main.temp)-273}°</p>
     <div flex flex-col items-center >
-        <p className='flex py-3'><UilTemperature/>Feels Like: {weatherdetail.main.feels_like.toFixed()}°</p>
+        <p className='flex py-3'><UilTemperature/>Feels Like: {weatherdetail.main.feels_like.toFixed()-273}°</p>
         <p className='flex'><UilTear/>Humidity: {weatherdetail.main.humidity}%</p>
         <p className='flex py-3'><UilWind/>Wind: {weatherdetail.wind.speed} km/h</p>
     </div>

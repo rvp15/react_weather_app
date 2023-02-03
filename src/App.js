@@ -17,7 +17,7 @@ const [unit,setUnit] =useState('metric')
 const [weather,setWeather]=useState(null)
 
   const startDataFetch = async()=>{
-    getFormattedData({...city,unit}).then((data)=>{setWeather(data)})
+    getFormattedData({...city,...unit}).then((data)=>{setWeather(data)})
     console.log(weather)
   }
 
