@@ -13,10 +13,13 @@ function SearchBar({ setCity, unit, setUnit }) {
       navigator.geolocation.getCurrentPosition((position)=>{
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-
-        setCity({lat,lon})
+      setCity({lat,lon})
       })
     }
+  }
+  const handleunit = (e) =>{
+    const currentUnit = e.currentTarget.name
+    if(unit!==currentUnit) setUnit(currentUnit)
   }
   return (
     <div className="flex flex-row justify-around my-6">
@@ -41,14 +44,16 @@ function SearchBar({ setCity, unit, setUnit }) {
       </div>
       <div className="flex flex-row items-center justify-center">
         <button
-          name="celsius"
+        onClick={handleunit}
+          name="metric"
           className="text-white text-xl px-3 cursor-pointer transition ease-out hover:scale-125"
         >
           °C
         </button>
         <p className="text-white">|</p>
         <button
-          name="fahrenheit"
+          onClick={handleunit}
+          name="imperial"
           className="text-white text-xl px-3 cursor-pointer transition ease-out hover:scale-125"
         >
           °F

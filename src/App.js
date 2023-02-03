@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import getFormattedData from './apiservices/weatherapi'
 
 function App() {
-const [city,setCity] = useState({q: 'berlin'})
+const [city,setCity] = useState({q: 'new york'})
 const [unit,setUnit] =useState('metric')
 const [weather,setWeather]=useState(null)
 
